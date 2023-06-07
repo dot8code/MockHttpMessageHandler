@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dot8code.Tests.MockHttpMessageHandler", "dot8code.Tests.MockHttpMessageHandler\dot8code.Tests.MockHttpMessageHandler.csproj", "{15C348D9-A1EB-4F92-9335-49F4F16FA6F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dot8code.Tests.MockHttpMessageHandler.Net6", "dot8code.Tests.MockHttpMessageHandler.Net6\dot8code.Tests.MockHttpMessageHandler.Net6.csproj", "{4C57B477-31F5-4CB2-B923-B2C569D45C77}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15C348D9-A1EB-4F92-9335-49F4F16FA6F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15C348D9-A1EB-4F92-9335-49F4F16FA6F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15C348D9-A1EB-4F92-9335-49F4F16FA6F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15C348D9-A1EB-4F92-9335-49F4F16FA6F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C57B477-31F5-4CB2-B923-B2C569D45C77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C57B477-31F5-4CB2-B923-B2C569D45C77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C57B477-31F5-4CB2-B923-B2C569D45C77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C57B477-31F5-4CB2-B923-B2C569D45C77}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
