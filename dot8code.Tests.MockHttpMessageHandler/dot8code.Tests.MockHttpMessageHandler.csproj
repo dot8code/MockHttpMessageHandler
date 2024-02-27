@@ -5,7 +5,7 @@
         <LangVersion>6</LangVersion>
         <TargetFrameworks>net6.0;net7.0;netcoreapp3.1;netstandard2.0;netstandard2.1;net462;net47;net471;net472;net48</TargetFrameworks>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Version>1.0.0-prev2</Version>
+        <Version>1.0.0-prev4</Version>
         <Authors>dot8code</Authors>
         <Description>MessageHandlerTests mock library</Description>
         <Copyright>dot8code</Copyright>
