@@ -5,7 +5,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace dot8code.Tests.MockHttpMessageHandler
+namespace dot8code.Tests.FakeHttpMessageHandler
 {
     /// <summary>
     /// MessageHandlerTests mock library
@@ -19,6 +19,11 @@ namespace dot8code.Tests.MockHttpMessageHandler
         private readonly HttpContent _httpContent;
         private readonly FakeHttpMessageHandlerResultType _fakeHttpMessageHandlerResultType;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="result"></param>
+        /// <param name="resultHttpStatusCode"></param>
         public FakeHttpMessageHandler(T result, HttpStatusCode resultHttpStatusCode)
         {
             _result = result;
@@ -26,12 +31,21 @@ namespace dot8code.Tests.MockHttpMessageHandler
             _fakeHttpMessageHandlerResultType = FakeHttpMessageHandlerResultType.Generic;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="exception"></param>
         public FakeHttpMessageHandler(Exception exception)
         {
             _exception = exception;
             _fakeHttpMessageHandlerResultType = FakeHttpMessageHandlerResultType.ThrowException;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="httpContent"></param>
+        /// <param name="httpStatusCode"></param>
         public FakeHttpMessageHandler(HttpContent httpContent, HttpStatusCode httpStatusCode)
         {
             _httpContent = httpContent;
@@ -41,17 +55,14 @@ namespace dot8code.Tests.MockHttpMessageHandler
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            switch (_fakeHttpMessageHandlerResultType)
+            return _fakeHttpMessageHandlerResultType switch
             {
-                case FakeHttpMessageHandlerResultType.Generic:
-                    return Task.FromResult(MockSend());
-                case FakeHttpMessageHandlerResultType.ThrowException:
-                    throw _exception;
-                case FakeHttpMessageHandlerResultType.PassedHttpContent:
-                    return Task.FromResult<HttpResponseMessage>(MockSendWithHttpContent());
-                default:
-                    throw new NotSupportedException();
-            }
+                FakeHttpMessageHandlerResultType.Generic => Task.FromResult(MockSend()),
+                FakeHttpMessageHandlerResultType.ThrowException => throw _exception,
+                FakeHttpMessageHandlerResultType.PassedHttpContent => Task.FromResult<HttpResponseMessage>(
+                    MockSendWithHttpContent()),
+                _ => throw new NotSupportedException()
+            };
         }
 
         private HttpResponseMessage MockSendWithHttpContent()

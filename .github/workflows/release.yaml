@@ -1,0 +1,155 @@
+﻿name: CI/CD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build and Pack Nuget
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Get version
+        id: package_version
+        uses: KageKirin/get-csproj-version@v1.0.0
+        with:
+          file: src/FakeHttpMessageHandler/FakeHttpMessageHandler.csproj # Specify your .csproj file path
+
+      - name: Restore Dependencies
+        run: dotnet restore
+
+      - name: Build Package
+        run: dotnet build -c Release
+        
+      - name: Pack NuGet Package
+        run: dotnet pack -c Release --output ./artifacts /p:Version=${{ steps.package_version.outputs.version }}
+        
+      - name: Store artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: nuget-package
+          path: ./artifacts/*.nupkg
+
+  test:
+    name: Test NuGet Package
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore Dependencies
+        run: dotnet restore
+
+      - name: Run Tests
+        run: dotnet test
+
+  deploy:
+    name: Deploy NuGet Package
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.0.x'
+          
+      - name: Download NuGet package
+        uses: actions/download-artifact@v3
+        with:
+          name: nuget-package
+          path: nuget-package
+
+      - name: Publish NuGet Package
+        run: dotnet nuget push nuget-package/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} 
+
+  release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: deploy
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Download NuGet package
+        uses: actions/download-artifact@v3
+        with:
+          name: nuget-package
+          path: nuget-package
+        
+      - name: Config git user
+        run: |
+          git config --global user.email "dot8code@gmail.com"
+          git config --global user.name "Github actions"
+
+      - name: Get version
+        id: package_version
+        uses: KageKirin/get-csproj-version@v1.0.0
+        with:
+          file: src/FakeHttpMessageHandler/FakeHttpMessageHandler.csproj # Specify your .csproj file path
+      
+      - name: Get last commit message
+        id: last_commit_message
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { data: commits } = await github.rest.repos.listCommits({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              per_page: 1
+            });
+            return commits[0].commit.message;
+
+      - name: Create Release Branch
+        run: |
+          git checkout -b release/${{ steps.package_version.outputs.version }}
+
+      - name: Push branch and tag
+        run: |
+          git push -u origin release/${{ steps.package_version.outputs.version }}
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.package_version.outputs.version }}
+          release_name: Release ${{ steps.package_version.outputs.version }}
+          draft: false
+          prerelease: ${{ contains(steps.package_version.outputs.version, 'prev') }}
+          body: |
+            Release for version ${{ steps.package_version.outputs.version }}
+            ${{ steps.last_commit_message.outputs.message }}
+            
+      - name: Upload NuGet package to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./nuget-package/dot8code.Tests.MockHttpMessageHandler.${{ steps.package_version.outputs.version }}.nupkg
+          asset_name: dot8code.Tests.MockHttpMessageHandler.${{ steps.package_version.outputs.version }}.nupkg
+          asset_content_type: application/zip

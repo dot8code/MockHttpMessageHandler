@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Nullable>disable</Nullable>
+        <LangVersion>9.0</LangVersion>
+        <TargetFrameworks>net8.0;netstandard2.0;</TargetFrameworks>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Version>1.0.0-prev16</Version>
+        <Authors>dot8code</Authors>
+        <Description>MessageHandlerTests mock library</Description>
+        <Copyright>dot8code</Copyright>
+        <RepositoryUrl>https://github.com/dot8code/MockHttpMessageHandler.git</RepositoryUrl>
+        <PackageIcon>d8c.png</PackageIcon>
+        <PackageId>dot8code.Tests.MockHttpMessageHandler</PackageId>
+        <Title>dot8code.Tests.MockHttpMessageHandler</Title>
+        <PackageProjectUrl>https://github.com/dot8code/MockHttpMessageHandler.git</PackageProjectUrl>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <RepositoryType>Git</RepositoryType>
+        <PackageTags>httpClient, mock, tests</PackageTags>
+        <PackageReleaseNotes></PackageReleaseNotes>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <RootNamespace>dot8code.Tests.FakeHttpMessageHandler</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\d8c.png" Pack="true" PackagePath="\" />
+        <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+        <None Include="..\..\LICENSE" Pack="true" PackagePath="\" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <PackageReference Include="System.Net.Http" Version="4.3.4" />
+      <PackageReference Include="System.Text.Json" Version="5.0.0" />
+    </ItemGroup>
+    
+    
+
+</Project>

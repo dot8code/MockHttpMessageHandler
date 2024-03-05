@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text.Json;
 
-namespace dot8code.Tests.MockHttpMessageHandler
+namespace dot8code.Tests.FakeHttpMessageHandler.Builders
 {
     public class FakeHttpMessageHandlerBuilder : IFakeHttpMessageHandlerBuilder
     {
@@ -28,7 +28,7 @@ namespace dot8code.Tests.MockHttpMessageHandler
 
         public IFakeHttpMessageHandlerBuilder SetStatusCodeResponse(int statusCode)
         {
-            if (Enum.IsDefined(typeof(HttpStatusCode), statusCode))
+            if (!Enum.IsDefined(typeof(HttpStatusCode), statusCode))
             {
                 throw new ArgumentException($"Status code: {statusCode} is not defined in {nameof(HttpStatusCode)} enum.");
             }
