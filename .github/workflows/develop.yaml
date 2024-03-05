@@ -18,6 +18,10 @@ jobs:
         with:
           dotnet-version: '8.0'
 
+      - name: Get current date/time
+        id: timestamp
+        run: echo "::set-output name=date::$(date +%Y%m%d%H%M%S)"
+
       - name: Get commit version
         id: commit_version
         run: echo "::set-output name=version::$(git describe --always --tags)"
@@ -32,7 +36,7 @@ jobs:
         run: dotnet test --configuration Release
 
       - name: Pack NuGet package
-        run: dotnet pack --configuration Release --output ./artifacts --version-suffix preview-$(date +%Y%m%d%H%M%S)-$(echo ${{ steps.commit_version.outputs.version }} | cut -c2-)
+        run: dotnet pack --configuration Release --output ./artifacts --version-suffix prev-${{ steps.timestamp.outputs.date }}-${{ steps.timestamp.outputs.name }}
 
       - name: Publish NuGet package
         run: dotnet nuget push ./artifacts/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
