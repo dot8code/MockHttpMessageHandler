@@ -1,8 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dot8code.Tests.MockHttpMessageHandler", "dot8code.Tests.MockHttpMessageHandler\dot8code.Tests.MockHttpMessageHandler.csproj", "{15C348D9-A1EB-4F92-9335-49F4F16FA6F0}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dot8code.Tests.MockHttpMessageHandler.Tests", "tests\dot8code.Tests.MockHttpMessageHandler.Tests\dot8code.Tests.MockHttpMessageHandler.Tests.csproj", "{81EBAB08-B13F-4FBA-A074-1D9EE19B2E99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dot8code.Tests.MockHttpMessageHandler.Net6", "dot8code.Tests.MockHttpMessageHandler.Net6\dot8code.Tests.MockHttpMessageHandler.Net6.csproj", "{4C57B477-31F5-4CB2-B923-B2C569D45C77}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{2AF4B4A7-2D51-41DF-8245-E66AA9A0546F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CD816AB0-D2E4-4CA0-AAD6-F14D370E56F0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dot8code.Tests.FakeHttpMessageHandler", "src\dot8code.Tests.FakeHttpMessageHandler\dot8code.Tests.FakeHttpMessageHandler.csproj", "{99EF7F72-4A76-4414-9217-9072B64E3202}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -10,13 +17,20 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{15C348D9-A1EB-4F92-9335-49F4F16FA6F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15C348D9-A1EB-4F92-9335-49F4F16FA6F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15C348D9-A1EB-4F92-9335-49F4F16FA6F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15C348D9-A1EB-4F92-9335-49F4F16FA6F0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C57B477-31F5-4CB2-B923-B2C569D45C77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C57B477-31F5-4CB2-B923-B2C569D45C77}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C57B477-31F5-4CB2-B923-B2C569D45C77}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C57B477-31F5-4CB2-B923-B2C569D45C77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81EBAB08-B13F-4FBA-A074-1D9EE19B2E99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81EBAB08-B13F-4FBA-A074-1D9EE19B2E99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81EBAB08-B13F-4FBA-A074-1D9EE19B2E99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81EBAB08-B13F-4FBA-A074-1D9EE19B2E99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99EF7F72-4A76-4414-9217-9072B64E3202}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99EF7F72-4A76-4414-9217-9072B64E3202}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99EF7F72-4A76-4414-9217-9072B64E3202}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99EF7F72-4A76-4414-9217-9072B64E3202}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{81EBAB08-B13F-4FBA-A074-1D9EE19B2E99} = {2AF4B4A7-2D51-41DF-8245-E66AA9A0546F}
+		{99EF7F72-4A76-4414-9217-9072B64E3202} = {CD816AB0-D2E4-4CA0-AAD6-F14D370E56F0}
 	EndGlobalSection
 EndGlobal

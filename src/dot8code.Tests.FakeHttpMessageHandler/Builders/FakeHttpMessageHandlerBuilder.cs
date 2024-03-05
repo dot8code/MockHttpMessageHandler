@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text.Json;
 
-namespace dot8code.Tests.MockHttpMessageHandler
+namespace dot8code.Tests.FakeHttpMessageHandler.Builders
 {
     public class FakeHttpMessageHandlerBuilder : IFakeHttpMessageHandlerBuilder
     {
@@ -28,7 +28,7 @@ namespace dot8code.Tests.MockHttpMessageHandler
 
         public IFakeHttpMessageHandlerBuilder SetStatusCodeResponse(int statusCode)
         {
-            if (Enum.IsDefined(typeof(HttpStatusCode), statusCode))
+            if (!Enum.IsDefined(typeof(HttpStatusCode), statusCode))
             {
                 throw new ArgumentException($"Status code: {statusCode} is not defined in {nameof(HttpStatusCode)} enum.");
             }
@@ -52,30 +52,30 @@ namespace dot8code.Tests.MockHttpMessageHandler
             return this;
         }
 
-        public FakeHttpMessageHandler<object> Build()
+        public MockHttpMessageHandler<object> Build()
         {
             if (_exceptionToThrow != null)
             {
-                return new FakeHttpMessageHandler<object>(_exceptionToThrow);
+                return new MockHttpMessageHandler<object>(_exceptionToThrow);
             }
             
-            return new FakeHttpMessageHandler<object>(_content, _statusCode);
+            return new MockHttpMessageHandler<object>(_content, _statusCode);
         }
 
         public HttpClient BuildHttpClient(string baseUrl = "http://baseaddress")
         {
-            FakeHttpMessageHandler<object> fakeHttpMessageHandler;
+            MockHttpMessageHandler<object> mockHttpMessageHandler;
 
             if (_exceptionToThrow != null)
             {
-                fakeHttpMessageHandler = new FakeHttpMessageHandler<object>(_exceptionToThrow);
+                mockHttpMessageHandler = new MockHttpMessageHandler<object>(_exceptionToThrow);
             }
             else
             {
-                fakeHttpMessageHandler = new FakeHttpMessageHandler<object>(_content, _statusCode);
+                mockHttpMessageHandler = new MockHttpMessageHandler<object>(_content, _statusCode);
             }
 
-            var httpClient = new HttpClient(fakeHttpMessageHandler);
+            var httpClient = new HttpClient(mockHttpMessageHandler);
             httpClient.BaseAddress = new Uri(baseUrl);
             
             return httpClient;
