@@ -1,0 +1,32 @@
+﻿name: Build, Test & Push Preview NuGet
+
+on:
+  pull-request:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.0'
+
+      - name: Get commit version
+        id: commit_version
+        run: echo "::set-output name=version::$(git describe --always --tags)"
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build and test
+        run: dotnet build --configuration Release
+
+      - name: Run unit tests
+        run: dotnet test --configuration Release
