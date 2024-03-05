@@ -1,4 +1,4 @@
-﻿name: Build, Test & Push Preview NuGet
+﻿name: Build, Test & Push Preview NuGet after merge
 
 on:
   push:
