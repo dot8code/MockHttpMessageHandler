@@ -3,7 +3,7 @@
 on:
   push:
     branches:
-      - develop
+      - release/*
 
 jobs:
   build:
@@ -16,27 +16,14 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '8.0'
-
-      - name: Get current date/time
-        id: timestamp
-        run: echo "::set-output name=date::$(date +%Y%m%d%H%M%S)"
-
-      - name: Get commit version
-        id: commit_version
-        run: echo "::set-output name=version::$(git describe --always --tags)"
+          dotnet-version: '8.0.x'
 
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Build and test
-        run: dotnet build --configuration Release
-
-      - name: Run unit tests
-        run: dotnet test --configuration Release
-
-      - name: Pack NuGet package
-        run: dotnet pack --configuration Release --output ./artifacts --version-suffix prev-${{ steps.timestamp.outputs.date }}-${{ steps.timestamp.outputs.name }}
+      - name: Build and pack
+        run: dotnet pack -c Release /p:Version=${{ steps.set_version.outputs.package_version }} --output ./artifacts
 
       - name: Publish NuGet package
+        if: startsWith(github.ref, 'refs/heads/release/')
         run: dotnet nuget push ./artifacts/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}

@@ -18,10 +18,6 @@ jobs:
         with:
           dotnet-version: '8.0'
 
-      - name: Get commit version
-        id: commit_version
-        run: echo "::set-output name=version::$(git describe --always --tags)"
-
       - name: Restore dependencies
         run: dotnet restore
 
