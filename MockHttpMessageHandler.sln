@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dot8code.Tests.MockHttpMessageHandler.Tests", "tests\dot8code.Tests.MockHttpMessageHandler.Tests\dot8code.Tests.MockHttpMessageHandler.Tests.csproj", "{81EBAB08-B13F-4FBA-A074-1D9EE19B2E99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MockHttpMessageHandler.Tests", "tests\MockHttpMessageHandler.Tests\MockHttpMessageHandler.Tests.csproj", "{81EBAB08-B13F-4FBA-A074-1D9EE19B2E99}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{2AF4B4A7-2D51-41DF-8245-E66AA9A0546F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CD816AB0-D2E4-4CA0-AAD6-F14D370E56F0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dot8code.Tests.FakeHttpMessageHandler", "src\dot8code.Tests.FakeHttpMessageHandler\dot8code.Tests.FakeHttpMessageHandler.csproj", "{99EF7F72-4A76-4414-9217-9072B64E3202}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FakeHttpMessageHandler", "src\FakeHttpMessageHandler\FakeHttpMessageHandler.csproj", "{99EF7F72-4A76-4414-9217-9072B64E3202}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

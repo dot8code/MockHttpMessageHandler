@@ -20,6 +20,7 @@
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <RootNamespace>dot8code.Tests.FakeHttpMessageHandler</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
