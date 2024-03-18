@@ -1,0 +1,29 @@
+﻿name: Build, Test & Push Preview NuGet after merge
+
+on:
+  push:
+    branches:
+      - release/*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build and pack
+        run: dotnet pack -c Release /p:Version=${{ steps.set_version.outputs.package_version }} --output ./artifacts
+
+      - name: Publish NuGet package
+        if: startsWith(github.ref, 'refs/heads/release/')
+        run: dotnet nuget push ./artifacts/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}

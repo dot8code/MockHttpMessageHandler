@@ -2,10 +2,10 @@
 
     <PropertyGroup>
         <Nullable>disable</Nullable>
-        <LangVersion>6</LangVersion>
+        <LangVersion>9.0</LangVersion>
         <TargetFrameworks>net6.0;net7.0;netcoreapp3.1;netstandard2.0;netstandard2.1;net462;net47;net471;net472;net48</TargetFrameworks>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Version>1.0.0-prev4</Version>
+        <Version>1.0.0-prev5</Version>
         <Authors>dot8code</Authors>
         <Description>MessageHandlerTests mock library</Description>
         <Copyright>dot8code</Copyright>
@@ -13,44 +13,27 @@
         <PackageIcon>d8c.png</PackageIcon>
         <Title>dot8code.Tests.MockHttpMessageHandler</Title>
         <PackageProjectUrl>https://github.com/dot8code/MockHttpMessageHandler.git</PackageProjectUrl>
-        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <RepositoryType>Git</RepositoryType>
         <PackageTags>httpClient, mock, tests</PackageTags>
-        <PackageReleaseNotes>1.0.0-prev1 Init project.</PackageReleaseNotes>
+        <PackageReleaseNotes></PackageReleaseNotes>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <RootNamespace>dot8code.Tests.FakeHttpMessageHandler</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+        <None Include="..\..\d8c.png" Pack="true" PackagePath="\" />
+        <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+        <None Include="..\..\LICENSE" Pack="true" PackagePath="\" />
+    </ItemGroup>
+    
     <ItemGroup>
       <PackageReference Include="System.Net.Http" Version="4.3.4" />
       <PackageReference Include="System.Text.Json" Version="5.0.0" />
     </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="d8c.png" />
-      <Resource Include="d8c.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        <Pack>True</Pack>
-        <PackagePath></PackagePath>
-      </Resource>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Resource Include="..\README.md">
-        <Link>README.md</Link>
-          <Pack>True</Pack>
-          <PackagePath></PackagePath>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Resource>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Resource Include="..\LICENSE.txt">
-        <Link>LICENSE.txt</Link>
-          <Pack>True</Pack>
-          <PackagePath></PackagePath>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Resource>
-    </ItemGroup>
+    
+    
 
 </Project>
