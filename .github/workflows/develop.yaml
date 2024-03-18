@@ -23,10 +23,10 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore ./src/FakeHttpMessageHandler
 
       - name: Build and pack
-        run: dotnet pack -c Release /p:Version=${{ steps.set_version.outputs.package_version }} --output ./artifacts
+        run: dotnet pack ./src/FakeHttpMessageHandler -c Release /p:Version=${{ steps.set_version.outputs.package_version }} --output ./artifacts
 
       - name: Publish NuGet package
         if: startsWith(github.ref, 'refs/heads/release/')
