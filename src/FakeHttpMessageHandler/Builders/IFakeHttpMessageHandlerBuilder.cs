@@ -45,7 +45,7 @@ namespace dot8code.Tests.FakeHttpMessageHandler.Builders
         /// 
         /// </summary>
         /// <returns></returns>
-        MockHttpMessageHandler<object> Build();
+        FakeHttpMessageHandler<object> Build();
         /// <summary>
         /// 
         /// </summary>

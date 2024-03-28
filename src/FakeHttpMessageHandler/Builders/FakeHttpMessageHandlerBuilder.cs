@@ -52,30 +52,30 @@ namespace dot8code.Tests.FakeHttpMessageHandler.Builders
             return this;
         }
 
-        public MockHttpMessageHandler<object> Build()
+        public FakeHttpMessageHandler<object> Build()
         {
             if (_exceptionToThrow != null)
             {
-                return new MockHttpMessageHandler<object>(_exceptionToThrow);
+                return new FakeHttpMessageHandler<object>(_exceptionToThrow);
             }
             
-            return new MockHttpMessageHandler<object>(_content, _statusCode);
+            return new FakeHttpMessageHandler<object>(_content, _statusCode);
         }
 
         public HttpClient BuildHttpClient(string baseUrl = "http://baseaddress")
         {
-            MockHttpMessageHandler<object> mockHttpMessageHandler;
+            FakeHttpMessageHandler<object> fakeHttpMessageHandler;
 
             if (_exceptionToThrow != null)
             {
-                mockHttpMessageHandler = new MockHttpMessageHandler<object>(_exceptionToThrow);
+                fakeHttpMessageHandler = new FakeHttpMessageHandler<object>(_exceptionToThrow);
             }
             else
             {
-                mockHttpMessageHandler = new MockHttpMessageHandler<object>(_content, _statusCode);
+                fakeHttpMessageHandler = new FakeHttpMessageHandler<object>(_content, _statusCode);
             }
 
-            var httpClient = new HttpClient(mockHttpMessageHandler);
+            var httpClient = new HttpClient(fakeHttpMessageHandler);
             httpClient.BaseAddress = new Uri(baseUrl);
             
             return httpClient;
