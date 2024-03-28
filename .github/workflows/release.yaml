@@ -89,6 +89,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
         
+      - name: Config git user
+        run: |
+          git config --global user.email "dot8code@gmail.com"
+          git config --global user.name "Github actions"
+          
       - name: Get version
         id: package_version
         uses: KageKirin/get-csproj-version@v1.0.0
