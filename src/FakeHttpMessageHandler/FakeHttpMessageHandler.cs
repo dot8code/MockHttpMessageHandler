@@ -11,7 +11,7 @@ namespace dot8code.Tests.FakeHttpMessageHandler
     /// MessageHandlerTests mock library
     /// </summary>
     /// <typeparam name="T">T is type which will be result of http call.</typeparam>
-    public class MockHttpMessageHandler<T> : HttpMessageHandler
+    public class FakeHttpMessageHandler<T> : HttpMessageHandler
     {
         private readonly T _result;
         private readonly HttpStatusCode _resultHttpStatusCode;
@@ -24,7 +24,7 @@ namespace dot8code.Tests.FakeHttpMessageHandler
         /// </summary>
         /// <param name="result"></param>
         /// <param name="resultHttpStatusCode"></param>
-        public MockHttpMessageHandler(T result, HttpStatusCode resultHttpStatusCode)
+        public FakeHttpMessageHandler(T result, HttpStatusCode resultHttpStatusCode)
         {
             _result = result;
             _resultHttpStatusCode = resultHttpStatusCode;
@@ -35,7 +35,7 @@ namespace dot8code.Tests.FakeHttpMessageHandler
         /// 
         /// </summary>
         /// <param name="exception"></param>
-        public MockHttpMessageHandler(Exception exception)
+        public FakeHttpMessageHandler(Exception exception)
         {
             _exception = exception;
             _fakeHttpMessageHandlerResultType = FakeHttpMessageHandlerResultType.ThrowException;
@@ -46,7 +46,7 @@ namespace dot8code.Tests.FakeHttpMessageHandler
         /// </summary>
         /// <param name="httpContent"></param>
         /// <param name="httpStatusCode"></param>
-        public MockHttpMessageHandler(HttpContent httpContent, HttpStatusCode httpStatusCode)
+        public FakeHttpMessageHandler(HttpContent httpContent, HttpStatusCode httpStatusCode)
         {
             _httpContent = httpContent;
             _resultHttpStatusCode = httpStatusCode;
