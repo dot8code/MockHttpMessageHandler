@@ -11,6 +11,7 @@
         <Copyright>dot8code</Copyright>
         <RepositoryUrl>https://github.com/dot8code/MockHttpMessageHandler.git</RepositoryUrl>
         <PackageIcon>d8c.png</PackageIcon>
+        <PackageId>dot8code.Tests.MockHttpMessageHandler</PackageId>
         <Title>dot8code.Tests.MockHttpMessageHandler</Title>
         <PackageProjectUrl>https://github.com/dot8code/MockHttpMessageHandler.git</PackageProjectUrl>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
