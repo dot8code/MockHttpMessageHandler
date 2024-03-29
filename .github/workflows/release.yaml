@@ -157,6 +157,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./nuget-package/*.nupkg
+          asset_path: ./nuget-package/dot8code.Tests.MockHttpMessageHandler.${{ steps.package_version.outputs.version }}.nupkg
           asset_name: dot8code.Tests.MockHttpMessageHandler.${{ steps.package_version.outputs.version }}.nupkg
           asset_content_type: application/zip
