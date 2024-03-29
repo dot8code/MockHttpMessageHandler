@@ -117,9 +117,9 @@ jobs:
         run: |
           git checkout -b release/${{ steps.package_version.outputs.version }}
 
-      - name: Add NuGet version tag
-        run: |
-          git tag -a ${{ steps.package_version.outputs.version }} -m "NuGet version: ${{ steps.package_version.outputs.version }}"
+#      - name: Add NuGet version tag
+#        run: |
+#          git tag -a ${{ steps.package_version.outputs.version }} -m "NuGet version: ${{ steps.package_version.outputs.version }}"
 
       - name: Push branch and tag
         run: |
@@ -131,8 +131,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{ steps.package_version.outputs.version }}
+          release_name: Release ${{ steps.package_version.outputs.version }}
           draft: false
           prerelease: ${{ contains(steps.package_version.outputs.version, 'prev') }}
           body: |
