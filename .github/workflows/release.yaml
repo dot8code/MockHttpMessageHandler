@@ -123,8 +123,7 @@ jobs:
 
       - name: Push branch and tag
         run: |
-          git push origin release/${{ steps.package_version.outputs.version }}
-          git push origin v${{ steps.package_version.outputs.version }}
+          git push -u origin release/${{ steps.package_version.outputs.version }}
 
       - name: Create Release
         id: create_release
