@@ -103,9 +103,6 @@ jobs:
           git config --global user.email "dot8code@gmail.com"
           git config --global user.name "Github actions"
 
-      - name: List contents of nuget-package directory
-        run: ls -l nuget-package
-
       - name: Get version
         id: package_version
         uses: KageKirin/get-csproj-version@v1.0.0
@@ -128,10 +125,6 @@ jobs:
       - name: Create Release Branch
         run: |
           git checkout -b release/${{ steps.package_version.outputs.version }}
-
-#      - name: Add NuGet version tag
-#        run: |
-#          git tag -a ${{ steps.package_version.outputs.version }} -m "NuGet version: ${{ steps.package_version.outputs.version }}"
 
       - name: Push branch and tag
         run: |
