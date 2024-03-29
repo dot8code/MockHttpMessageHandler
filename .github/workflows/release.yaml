@@ -102,7 +102,10 @@ jobs:
         run: |
           git config --global user.email "dot8code@gmail.com"
           git config --global user.name "Github actions"
-          
+
+      - name: List contents of nuget-package directory
+        run: ls -l 
+
       - name: Get version
         id: package_version
         uses: KageKirin/get-csproj-version@v1.0.0
