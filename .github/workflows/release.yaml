@@ -80,8 +80,8 @@ jobs:
           name: nuget-package
           path: nuget-package
 
-#      - name: Publish NuGet Package
-#        run: dotnet nuget push nuget-package/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} 
+      - name: Publish NuGet Package
+        run: dotnet nuget push nuget-package/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} 
 
   release:
     name: Create GitHub Release
