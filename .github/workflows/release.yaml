@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Build 
+    name: Build and Pack Nuget
     runs-on: ubuntu-latest
 
     steps:
@@ -19,11 +19,26 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      - name: Get version
+        id: package_version
+        uses: KageKirin/get-csproj-version@v1.0.0
+        with:
+          file: src/FakeHttpMessageHandler/FakeHttpMessageHandler.csproj # Specify your .csproj file path
+
       - name: Restore Dependencies
         run: dotnet restore
 
       - name: Build Package
         run: dotnet build -c Release
+        
+      - name: Pack NuGet Package
+        run: dotnet pack -c Release --output ./artifacts /p:Version=${{ steps.package_version.outputs.version }}
+        
+      - name: Store artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: nuget-package
+          path: ./artifacts/*.nupkg
 
   test:
     name: Test NuGet Package
@@ -58,27 +73,15 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '8.0.x'
-
-      - name: Get version
-        id: package_version
-        uses: KageKirin/get-csproj-version@v1.0.0
-        with:
-          file: src/FakeHttpMessageHandler/FakeHttpMessageHandler.csproj # Specify your .csproj file path
           
-      - name: Upload Version Artifact
-        uses: actions/upload-artifact@v3
+      - name: Download NuGet package
+        uses: actions/download-artifact@v3
         with:
-          name: version
-          path: ${{ steps.package_version.outputs.version }}    
-      
-      - name: Build Package
-        run: dotnet build -c Release
-
-      - name: Pack NuGet Package
-        run: dotnet pack -c Release --output ./artifacts /p:Version=${{ steps.package_version.outputs.version }}
+          name: nuget-package
+          path: nuget-package
 
 #      - name: Publish NuGet Package
-#        run: dotnet nuget push ./artifacts/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} 
+#        run: dotnet nuget push nuget-package/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} 
 
   release:
     name: Create GitHub Release
@@ -88,6 +91,12 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+
+      - name: Download NuGet package
+        uses: actions/download-artifact@v3
+        with:
+          name: nuget-package
+          path: nuget-package
         
       - name: Config git user
         run: |
@@ -145,6 +154,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifacts/*.nupkg
-          asset_name: MyPackage.nupkg
+          asset_path: nuget-package/*.nupkg
+          asset_name: dot8code.Tests.MockHttpMessageHandler.${{ steps.package_version.outputs.version }}.nupkg
           asset_content_type: application/zip
